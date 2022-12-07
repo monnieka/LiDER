@@ -1,4 +1,3 @@
-
 from datetime import datetime
 from utils.training import evaluate
 from torch.optim import SGD

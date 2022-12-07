@@ -134,22 +134,3 @@ def store_masked_loaders(train_dataset: datasets, test_dataset: datasets,
 
     setting.i += setting.N_CLASSES_PER_TASK
     return train_loader, test_loader
-
-
-def get_previous_train_loader(train_dataset: datasets, batch_size: int,
-                              setting: ContinualDataset) -> DataLoader:
-    """
-    Creates a dataloader for the previous task.
-    :param train_dataset: the entire training set
-    :param batch_size: the desired batch size
-    :param setting: the continual dataset at hand
-    :return: a dataloader
-    """
-    train_mask = np.logical_and(np.array(train_dataset.targets) >=
-        setting.i - setting.N_CLASSES_PER_TASK, np.array(train_dataset.targets)
-        < setting.i - setting.N_CLASSES_PER_TASK + setting.N_CLASSES_PER_TASK)
-
-    train_dataset.data = train_dataset.data[train_mask]
-    train_dataset.targets = np.array(train_dataset.targets)[train_mask]
-
-    return DataLoader(train_dataset, batch_size=batch_size, shuffle=True, drop_last=True)

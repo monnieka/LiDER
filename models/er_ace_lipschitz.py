@@ -1,4 +1,3 @@
-
 from copy import deepcopy
 import torch
 import torch.nn.functional as F
@@ -33,6 +32,7 @@ class ErACELipschitz(LipOptimizer):
 
     def begin_task(self, dataset):
         if self.task == 0:
+            self.load_pretrained_network()
             self.load_initial_checkpoint()
             self.reset_classifier()
 
